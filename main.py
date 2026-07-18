@@ -18,7 +18,7 @@ def play_music(folder,song_name):
     pygame.mixer.music.play()
 
     print(f"\nNow playing: {song_name}")
-    print("Commands: [P]ause, [R]esume, [S]top, [V]olume")
+    print("Commands: [P]ause, [R]esume, [S]top, [V]olume, Restar[T]")
 
     while True:
         command = input("> ").upper()
@@ -30,6 +30,11 @@ def play_music(folder,song_name):
         if command == "R":
             pygame.mixer.music.unpause()
             print("Music resumed.")
+
+
+        if command == "T":
+            pygame.mixer.music.rewind()
+            print("Music restarted.")
 
 
         if command == "S":
@@ -50,6 +55,7 @@ def play_music(folder,song_name):
                 if vol_percent > 100 or vol_percent < 0:
                     print("Invalid choice. Please enter a number between 0 and 100.")
                     continue
+
                 vol_percent = max(0, min(100, vol_percent))
                 pygame.mixer.music.set_volume(vol_percent/100)
                 print(f"Volume set to {vol_percent}%")
