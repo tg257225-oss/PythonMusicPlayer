@@ -18,7 +18,7 @@ def play_music(folder,song_name):
     pygame.mixer.music.play()
 
     print(f"\nNow playing: {song_name}")
-    print("Commands: [P]ause, [R]esume, [S]top, [V]olume, Restar[T]")
+    print("Commands: [P]ause, [R]esume, [S]top, [V]olume, Restar[T], [L]oop")
 
     while True:
         command = input("> ").upper()
@@ -35,6 +35,27 @@ def play_music(folder,song_name):
         if command == "T":
             pygame.mixer.music.rewind()
             print("Music restarted.")
+
+        if command == "L":
+            loop_input = input("\nEnter the number of times you wish to loop the song. Enter -1 if you want to loop the song indefinitely.")
+            try:
+                loop = int(loop_input)
+            except ValueError:
+                print("Invalid choice. Please enter a valid number.")
+                continue
+
+            if loop < -1:
+                print("Invalid choice. Please enter a valid number.")
+                continue
+
+
+            if loop ==-1:
+                pygame.mixer.music.play(loops=-1)
+                print("Music looped indefinitely.")
+
+            else:
+                pygame.mixer.music.play(loops=loop + 1)
+                print(f"Music will repeat {loop} time(s) after the initial play.")
 
 
         if command == "S":
