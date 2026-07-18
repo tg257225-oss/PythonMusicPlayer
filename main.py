@@ -38,12 +38,24 @@ def play_music(folder,song_name):
             break
 
         if command == "V":
-            vol_input = input("\nEnter the volume level (0-100): ")
-            if vol_input.isdigit():
-                vol_percent = int(vol_input)
+            while True:
+                vol_input = input("\nEnter the volume level (0-100): ")
+
+                try:
+                    vol_percent = int(vol_input)
+                except ValueError:
+                    print("Invalid choice. Please enter a number between 0 and 100.")
+                    continue
+
+                if vol_percent > 100 or vol_percent < 0:
+                    print("Invalid choice. Please enter a number between 0 and 100.")
+                    continue
                 vol_percent = max(0, min(100, vol_percent))
                 pygame.mixer.music.set_volume(vol_percent/100)
                 print(f"Volume set to {vol_percent}%")
+                break
+
+
 
 
 
