@@ -2,6 +2,38 @@ import os
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 import pygame
 
+
+
+def play_music(folder,song_name):
+
+    file_path = os.path.join(folder, song_name)
+
+
+    if not os.path.exists(file_path):
+        print("File not found.")
+        return
+
+    pygame.mixer.music.load(file_path)
+    pygame.mixer.music.play()
+
+    print(f"\nNow playing: {song_name}")
+    print("Commands: [P]ause, [R]esume, [S]top")
+
+    while True:
+        command = input("> ").upper()
+
+        if command == "P":
+            pygame.mixer.music.pause()
+
+        if command == "R":
+            pygame.mixer.music.unpause()
+
+        if command == "S":
+            pygame.mixer.music.stop()
+            break
+
+
+
 def main():
     try:
         pygame.mixer.init()
@@ -30,7 +62,24 @@ def main():
 
         for index, song in enumerate(mp3_files, start=1):
             print(f"{index}. {song}")
-        break
+
+        choice_input = input("\nEnter the song # to play (or 'Q' to quit): ")
+
+        if choice_input.upper() == "Q":
+            print("Quitting...")
+            break
+
+
+        if not choice_input.isdigit():
+            print("Invalid choice. Please enter a number.")
+            continue
+
+        choice = int(choice_input) -1
+
+        if 0 <= choice < len(mp3_files):
+            play_music(folder, mp3_files[choice])
+        else:
+            print("Invalid choice.")
 
 if __name__ == "__main__":
     main()
