@@ -1,4 +1,5 @@
 import os
+
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 import pygame
 
@@ -17,20 +18,33 @@ def play_music(folder,song_name):
     pygame.mixer.music.play()
 
     print(f"\nNow playing: {song_name}")
-    print("Commands: [P]ause, [R]esume, [S]top")
+    print("Commands: [P]ause, [R]esume, [S]top, [V]olume")
 
     while True:
         command = input("> ").upper()
 
         if command == "P":
             pygame.mixer.music.pause()
+            print("Music paused.")
 
         if command == "R":
             pygame.mixer.music.unpause()
+            print("Music resumed.")
+
 
         if command == "S":
             pygame.mixer.music.stop()
+            print("Music stopped.")
             break
+
+        if command == "V":
+            vol_input = input("\nEnter the volume level (0-100): ")
+            if vol_input.isdigit():
+                vol_percent = int(vol_input)
+                vol_percent = max(0, min(100, vol_percent))
+                pygame.mixer.music.set_volume(vol_percent/100)
+                print(f"Volume set to {vol_percent}%")
+
 
 
 
